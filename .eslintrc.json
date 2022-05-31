@@ -1,0 +1,7 @@
+{
+    "globals": {
+        "nodecg": false,
+        "NodeCG": false,
+        "document": false
+    }
+}
