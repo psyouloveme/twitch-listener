@@ -6,7 +6,14 @@ function onDisconnect() {
 }
 
 function onConnect() {
-	nodecg.sendMessage('ConnectTwitch', document.getElementById('channelName').value);
+	let channelName = document.getElementById('channelName').value;
+	if (channelName && !channelName.startsWith('#')) {
+		channelName = '#' + channelName;
+		document.getElementById('channelName').value = channelName;
+	}
+
+	twitchChannel.value = channelName;
+	nodecg.sendMessage('ConnectTwitch');
 }
 
 function setTwitchStatus(isConnected) {
@@ -28,21 +35,21 @@ function setTwitchStatus(isConnected) {
 }
 
 NodeCG.waitForReplicants(twitchConnected).then(() => {
-	console.log('got replicant', twitchConnected);
+	console.log('got connected replicant', twitchConnected.value);
 	setTwitchStatus(twitchConnected.value === true);
 
 	NodeCG.waitForReplicants(twitchChannel).then(() => {
-		console.log('got replicant', twitchChannel);
+		console.log('got channel replicant', twitchChannel.value);
 		document.getElementById('channelName').value = twitchChannel.value;
 
 		twitchChannel.on('change', nextVal => {
-			console.log('channel changed');
+	    console.log('channel changed to', nextVal);
 			document.getElementById('channelName').value = nextVal;
 		});
 	});
 
 	twitchConnected.on('change', nextVal => {
-	    console.log('connected changed', nextVal);
+	    console.log('connected changed to', nextVal);
 		setTwitchStatus(nextVal);
 	});
 

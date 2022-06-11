@@ -26,7 +26,7 @@ function onJoin(nodecg, client) {
 			};
 		});
 
-		if (chan.toLowerCase() === twitchChannel.toLowerCase()) {
+		if (chan.toLowerCase() === twitchChannel.value.toLowerCase()) {
 			nodecg.sendMessage(
 				'ChatReceived',
 				{user, message, msgobj: parsedEmotes},
