@@ -46,13 +46,16 @@
       "source": "./src/extension/index.js",
       "distDir": "./extension/",
       "context": "node",
-      "publicUrl": "./"
+      "publicUrl": "./",
+      "outputFormat": "commonjs"
     },
     "dashboard": {
       "source": "./src/dashboard/index.html",
       "distDir": "./dashboard/",
       "context": "browser",
-      "publicUrl": "./"
+      "publicUrl": "./",
+      "outputFormat": "global",
+      "optimize": true
     }
   },
   "scripts": {

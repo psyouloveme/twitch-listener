@@ -87,7 +87,7 @@ function setupTwitchChat(nodecg, client) {
 	const twitchChannel = nodecg.Replicant('twitchChannel');
 
 	if (twitchChannel.value) {
-	    nodecg.log.info('Read existing channel, starting wtih ', twitchChannel.value);
+		nodecg.log.info('Read existing channel, starting wtih ', twitchChannel.value);
 		joinChannel(nodecg, client, twitchChannel.value);
 	}
 

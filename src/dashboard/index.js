@@ -43,13 +43,13 @@ NodeCG.waitForReplicants(twitchConnected).then(() => {
 		document.getElementById('channelName').value = twitchChannel.value;
 
 		twitchChannel.on('change', nextVal => {
-	    console.log('channel changed to', nextVal);
+			console.log('channel changed to', nextVal);
 			document.getElementById('channelName').value = nextVal;
 		});
 	});
 
 	twitchConnected.on('change', nextVal => {
-	    console.log('connected changed to', nextVal);
+		console.log('connected changed to', nextVal);
 		setTwitchStatus(nextVal);
 	});
 
