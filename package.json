@@ -1,12 +1,12 @@
 {
   "name": "twitch-listener",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "",
   "homepage": "",
   "author": {
     "name": "psyouloveme",
     "email": "4607641+psyouloveme@users.noreply.github.com",
-    "url": ""
+    "url": "https://psyoulove.me"
   },
   "files": [
     "dashboard",
@@ -59,6 +59,7 @@
     }
   },
   "scripts": {
-    "build": "parcel build --target dashboard --target extension"
+    "build": "parcel build --target dashboard --target extension",
+    "clean": "rm -rf ./.parcel-cache ./dashboard ./extension"
   }
 }

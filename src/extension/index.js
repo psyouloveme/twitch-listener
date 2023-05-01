@@ -1,10 +1,7 @@
 const {requireService} = require('nodecg-io-core');
 
 function onJoin(nodecg, client) {
-	nodecg.log.info('ok setting up');
-
 	const twitchChannel = nodecg.Replicant('twitchChannel');
-
 	nodecg.log.info(`Connected to twitch channel "${twitchChannel.value}"`);
 
 	client.onMessage((chan, user, message, _msg) => {
@@ -61,7 +58,7 @@ function onJoin(nodecg, client) {
 }
 
 function joinChannel(nodecg, client, channel) {
-	nodecg.log.info('actually doing join to ', channel);
+	nodecg.log.debug('actually doing join to ', channel);
 
 	if (channel) {
 		let channelToJoin = channel;
@@ -69,7 +66,7 @@ function joinChannel(nodecg, client, channel) {
 			channelToJoin = '#' + channelToJoin;
 		}
 
-		nodecg.log.info('doing it for real', channel);
+		nodecg.log.debug('doing it for real', channel);
 
 		client
 			.join(channelToJoin)
@@ -87,14 +84,14 @@ function setupTwitchChat(nodecg, client) {
 	const twitchChannel = nodecg.Replicant('twitchChannel');
 
 	if (twitchChannel.value) {
-		nodecg.log.info('Read existing channel, starting wtih ', twitchChannel.value);
+		nodecg.log.info('Joining last channel ', twitchChannel.value);
 		joinChannel(nodecg, client, twitchChannel.value);
 	}
 
 	nodecg.listenFor('ConnectTwitch', () => {
 		const twitchConnected = nodecg.Replicant('twitchConnected');
 		if (!twitchConnected.value && twitchChannel.value) {
-			nodecg.log.info('got connect channel, connecting to ', twitchChannel.value);
+			nodecg.log.info('Joining requested channel ', twitchChannel.value);
 			joinChannel(nodecg, client, twitchChannel.value);
 		}
 	});
@@ -115,7 +112,7 @@ module.exports = function (nodecg) {
 	nodecg.Replicant('twitchConnected', {
 		defaultValue: false
 	});
-	nodecg.log.info('Twitch extension starting.');
+	nodecg.log.info('Twitch listener bundle starting.');
 
 	const twitchChat = requireService(nodecg, 'twitch-chat');
 
@@ -124,4 +121,5 @@ module.exports = function (nodecg) {
 	});
 
 	twitchChat.onUnavailable(async () => teardownTwitchChat(nodecg));
+	nodecg.log.info('Twitch listener bundle is running.');
 };
